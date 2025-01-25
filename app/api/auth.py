@@ -30,7 +30,16 @@ def callback():
             "token_expires_at": token.get("expires_at"),
         }
 
-        return jsonify({"message": "Login successful", "user": session["user"]})
+        return """
+        <html>
+            <body>
+                <p>Authentication successful! You can close this window.</p>
+                <script>
+                    window.opener.postMessage({ status: 'success' }, '*');
+                </script>
+            </body>
+        </html>
+        """
     except Exception as e:
         print(f"CALLBACK ERROR -> {str(e)}")
         return jsonify({"error": "An error occurred during the callback"}), 500

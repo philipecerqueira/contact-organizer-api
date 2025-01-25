@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask
+from flask_cors import CORS
 
 from app.api.auth import auth_bp
 from app.api.google_contacts import google_contacts_bp
@@ -11,6 +12,17 @@ from app.utils.oauth import oauth
 def create_app():
     app = Flask(__name__)
     app.secret_key = os.getenv("SECRET_KEY", "your-secret-key")
+    app.config.update(
+        SESSION_COOKIE_HTTPONLY=True,
+        SESSION_COOKIE_SECURE=False,  # TODO: Quando for https alterar para True
+        SESSION_COOKIE_SAMESITE="Lax",
+    )
+
+    CORS(
+        app,
+        supports_credentials=True,
+        origins=["http://localhost:8080", "http://127.0.0.1:8080"],
+    )
 
     oauth.init_app(app)
     oauth.register(
