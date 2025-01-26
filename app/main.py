@@ -3,10 +3,8 @@ import os
 from flask import Flask
 from flask_cors import CORS
 
-from app.api.auth import auth_bp
-from app.api.google_contacts import google_contacts_bp
-from app.api.health import health_bp
-from app.utils.oauth import oauth
+from app.api import auth_bp, google_contacts_bp, health_bp
+from app.utils import oauth
 
 
 def create_app():

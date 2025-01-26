@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, session, url_for
 
-from app.utils.oauth import get_google_client
+from app.utils import get_google_client
 
 auth_bp = Blueprint("auth", __name__)
 
